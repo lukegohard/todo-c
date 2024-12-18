@@ -1,0 +1,6 @@
+lists/
+.lists/
+.vscode/
+
+main
+test*
