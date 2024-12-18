@@ -45,7 +45,7 @@ void creaLista(char *title){
 		fgets(task, MAX_TASK_LEN, stdin);
 		task[strcspn(task, "\n")] = '\0';
 
-		if (strcmp(task, "END") == 0) {
+		if (strcmp(task, "END") == 0 || strcmp(task, "end") == 0 ) {
 			fclose(fp);
 			break;
 		}
@@ -81,15 +81,17 @@ void elencaListe() {
 			printf(CYN "\t- %.*s\n" RESET, (int)len, filename);
 			tot++;
 		}
-
+		
 	}
+	closedir(dir);
 
 	if (tot == 0){
 		cleanConsole();
 		printf(RED "[-] Nessuna lista presente.\n\n" RESET);
+		return;
 	}
 
-	closedir(dir);
+	printf("\n");
 }
 
 // Prende in input il titolo di una nota.
