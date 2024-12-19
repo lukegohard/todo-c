@@ -34,8 +34,20 @@ int main() {
             creaLista(title);
             break;
 
-        case 2: // Elenco di tutte le liste presenti
-			elencaListe();
+        case 2: // Aggiungi elementi alla lista
+
+            char a_title[MAX_TITLE_LEN];
+    		printf(YEL "Inserisci il titolo della lista (max %d caratteri): " RESET, MAX_TITLE_LEN);
+    		fgets(a_title, MAX_TITLE_LEN, stdin);
+    		a_title[strcspn(a_title, "\n")] = '\0';
+
+            if (strlen(a_title) == 0) {
+		    	cleanConsole();
+                printf(RED "[!] Il titolo della lista non può essere vuoto.\n\n" RESET);
+                break;
+            }
+
+            aggiungiTaskLista(a_title);
             break;
 
         case 3: // Visualizzazione di una lista
@@ -54,7 +66,11 @@ int main() {
 			printLista(v_title);
             break;
 
-		case 4: // Elimina una lista
+        case 4: // Elenco di tutte le liste presenti
+			elencaListe();
+            break;
+
+		case 5: // Elimina una lista
 			char e_title[MAX_TITLE_LEN];
 
     		printf(YEL "Inserisci il titolo per la lista da visualizzare (max %d caratteri): " RESET, MAX_TITLE_LEN);

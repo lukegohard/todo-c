@@ -15,9 +15,10 @@ void cleanConsole();
 // Print menu
 void menu() {
     printf(GRN "[1] " RESET "Crea Lista.\n\n");
-    printf(GRN "[2] " RESET "Elenca Liste.\n\n");
+    printf(GRN "[2] " RESET "Aggiungi elementi alla Lista.\n\n");
     printf(GRN "[3] " RESET "Visualizza Lista.\n\n");
-    printf(GRN "[4] " RESET "Elimina Lista.\n\n");
+    printf(GRN "[4] " RESET "Elenca Liste.\n\n");
+    printf(GRN "[5] " RESET "Elimina Lista.\n\n");
     printf(RED "[0] " RESET "Esci.\n\n");
     printf(YEL "> " RESET);
 }

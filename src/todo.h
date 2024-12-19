@@ -5,11 +5,12 @@ void creaLista(char *title);
 void elencaListe();
 void printLista(char *title);
 void eliminaLista(char *title);
+void aggiungiTaskLista(char *title);
 
 
 // Prende in input il titolo della nota.
 // Dal titolo costruisce il filename, e crea il file (se non esiste).
-// Con un ciclo vengono aggiunti le voci alla nota, fino a quando l'utente insersci "END".
+// Con un ciclo vengono aggiunti le voci alla nuova nota appena creata, fino a quando l'utente insersci "END".
 void creaLista(char *title){
 
 	// crea cartella se non esiste
@@ -36,7 +37,7 @@ void creaLista(char *title){
         return;
     }
 
-	printf(MAG "Inserisci tutte le task che vuoi (END per terminare).\n\n" RESET);
+	printf(MAG "Inserisci tutte le task che vuoi (END|end per terminare).\n\n" RESET);
 	while(1) {
 
 		char task[MAX_TASK_LEN];
@@ -56,6 +57,51 @@ void creaLista(char *title){
 
 	cleanConsole();
 	printf(GRN "[+] Lista creata con successo!\n\n" RESET);
+}
+
+// Prende in input il titolo della nota.
+// Dal titolo costruisce il filename, e crea il file (se non esiste).
+// Con un ciclo vengono aggiunti le voci alla nota, fino a quando l'utente insersci "END".
+void aggiungiTaskLista(char *title) {
+
+	// Partendo dal titolo crea il filename per la lista
+    char filename[MAX_TITLE_LEN+15];
+	buildFilename(filename, title);
+
+	if (!fileExists(filename)) {
+		cleanConsole();
+		printf(RED "[!] Non esiste una lista con questo titolo.\n\n" RESET);
+		return;
+	}
+
+    FILE *fp = fopen(filename, "a");
+    if (fp == NULL) {
+        printf(RED "[!] Errore nell'apertura del file.\n" RESET);
+        fclose(fp);
+        return;
+    }
+
+	printf(MAG "Inserisci tutte le task che vuoi (END|end per terminare).\n\n" RESET);
+	while(1) {
+
+		char task[MAX_TASK_LEN];
+
+		printf(YEL "> " RESET);
+		fgets(task, MAX_TASK_LEN, stdin);
+		task[strcspn(task, "\n")] = '\0';
+
+		if (strcmp(task, "END") == 0 || strcmp(task, "end") == 0 ) {
+			fclose(fp);
+			break;
+		}
+
+		fprintf(fp, "- %s\n", task);
+		fflush(fp);
+	}
+
+	cleanConsole();
+	printf(GRN "[+] Elementi aggiunti con successo!\n\n" RESET);
+
 }
 
 // Prima verifica che la directory delle liste esista.
